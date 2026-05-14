@@ -1,0 +1,19 @@
+.env
+.env.*
+!.env.example
+
+secrets/*
+!secrets/
+!secrets/.gitkeep
+!secrets/README.md
+
+db_backups/*
+uploads/
+
+.DS_Store
+.idea/
+*.log
+
+A3 Field Service Management Backend/
+A3 Field Service Management Frontend/
+A3_ Solutions_ project_proposal/
