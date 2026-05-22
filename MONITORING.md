@@ -4,10 +4,14 @@ Sprint 9 adds a Prometheus and Grafana observability stack for the Spring Boot b
 
 ## Services
 
+These URLs apply to the development stack started with `docker-compose.dev.yml`.
+
 - Backend metrics: `http://localhost:8080/actuator/prometheus`
 - Prometheus: `http://localhost:9090`
 - Grafana: `http://localhost:3000`
 - PostgreSQL exporter: `http://localhost:9187/metrics`
+
+In `docker-compose.prod.yml`, Grafana remains published on `http://localhost:3000`, while Prometheus and the PostgreSQL exporter stay internal to the Docker network by default.
 
 Grafana is provisioned automatically with the `A3 FSM Operational Overview` dashboard and a Prometheus datasource.
 

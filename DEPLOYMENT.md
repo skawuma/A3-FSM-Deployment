@@ -17,6 +17,8 @@
    docker compose -f docker-compose.prod.yml --env-file .env up --build -d
    ```
 
+Production defaults keep self-registration and admin bootstrap disabled. Only login and refresh-token exchange should remain public auth flows in a normal production deployment.
+
 ## Health Checks
 
 - Backend readiness: `http://localhost:8080/actuator/health/readiness` inside the Docker network.
