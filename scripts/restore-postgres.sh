@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]; then
   exit 64
 fi
 
-COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.prod.yml}"
+COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.ghcr.yml}"
 BACKUP_FILE="$1"
 
 if [ ! -f "$BACKUP_FILE" ]; then

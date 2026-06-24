@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.prod.yml}"
+COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.ghcr.yml}"
 BACKUP_DIR="${BACKUP_DIR:-db_backups}"
 TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 BACKUP_FILE="${BACKUP_DIR}/a3fsm_${TIMESTAMP}.dump"

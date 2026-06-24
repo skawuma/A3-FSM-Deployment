@@ -11,7 +11,13 @@
    chmod 600 secrets/jwt_secret.txt
    ```
 
-3. Start the stack:
+3. For VPS deployment, prefer the GHCR runtime stack:
+
+   ```sh
+   docker compose -f docker-compose.ghcr.yml --env-file .env up -d
+   ```
+
+   Local source-build production remains available:
 
    ```sh
    docker compose -f docker-compose.prod.yml --env-file .env up --build -d
@@ -36,7 +42,7 @@ GRAFANA_ADMIN_USER=admin
 GRAFANA_ADMIN_PASSWORD=replace-with-a-strong-grafana-password
 ```
 
-More detail lives in `MONITORING.md`.
+More detail lives in `MONITORING.md`. VPS deployment details live in `VPS_DEPLOYMENT.md`.
 
 ## Frontend Runtime
 
@@ -54,7 +60,7 @@ Run an on-demand production backup:
 ./scripts/backup-postgres.sh
 ```
 
-Backups are written to `db_backups/` as custom-format PostgreSQL dump files.
+Backups are written to `db_backups/` as custom-format PostgreSQL dump files. The scripts default to `docker-compose.ghcr.yml`; set `COMPOSE_FILE=docker-compose.prod.yml` if you are using the local source-build stack.
 
 ## Restore
 

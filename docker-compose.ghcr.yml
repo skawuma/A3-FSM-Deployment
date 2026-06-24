@@ -1,4 +1,27 @@
 services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: a3fsm_caddy_prod
+    restart: unless-stopped
+    environment:
+      APP_HOST: ${APP_HOST}
+      GRAFANA_HOST: ${GRAFANA_HOST}
+      ACME_EMAIL: ${ACME_EMAIL}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./vps/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      frontend:
+        condition: service_healthy
+      grafana:
+        condition: service_started
+    networks:
+      - a3fsm_network
+
   db:
     image: postgres:16
     container_name: a3fsm_postgres_prod
@@ -33,8 +56,10 @@ services:
       JWT_EXPIRATION: ${JWT_EXPIRATION}
       JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
       APP_BOOTSTRAP_DEMO_DATA: "false"
-      APP_AUTH_ALLOW_SELF_REGISTRATION: "false"
-      APP_AUTH_ALLOW_ADMIN_BOOTSTRAP: "false"
+      APP_AUTH_ALLOW_SELF_REGISTRATION: ${APP_AUTH_ALLOW_SELF_REGISTRATION:-false}
+      APP_AUTH_ALLOW_ADMIN_BOOTSTRAP: ${APP_AUTH_ALLOW_ADMIN_BOOTSTRAP:-false}
+      APP_AUTH_BOOTSTRAP_ADMIN_EMAIL: ${APP_AUTH_BOOTSTRAP_ADMIN_EMAIL:-}
+      APP_AUTH_BOOTSTRAP_ADMIN_PASSWORD: ${APP_AUTH_BOOTSTRAP_ADMIN_PASSWORD:-}
       SERVER_PORT: 8080
       APP_CORS_ALLOWED_ORIGINS: ${APP_CORS_ALLOWED_ORIGINS}
       SPRING_FLYWAY_ENABLED: ${SPRING_FLYWAY_ENABLED:-true}
@@ -63,8 +88,6 @@ services:
     depends_on:
       backend:
         condition: service_healthy
-    ports:
-      - "80:80"
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost/healthz || exit 1"]
       interval: 30s
@@ -120,8 +143,6 @@ services:
     depends_on:
       prometheus:
         condition: service_started
-    ports:
-      - "3000:3000"
     networks:
       - a3fsm_network
 
@@ -129,6 +150,8 @@ networks:
   a3fsm_network:
 
 volumes:
+  caddy_data:
+  caddy_config:
   db_data_prod:
   uploads_prod:
   prometheus_data_prod:

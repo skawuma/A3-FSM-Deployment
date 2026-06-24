@@ -27,6 +27,9 @@ jobs:
           DB_NAME=a3fsm
           DB_USERNAME=a3fsm_user
           DB_PASSWORD=a3fsm_password
+          APP_HOST=fsm.example.com
+          GRAFANA_HOST=grafana.example.com
+          ACME_EMAIL=admin@example.com
           PGADMIN_EMAIL=admin@example.com
           PGADMIN_PASSWORD=pgadmin_password
           JWT_EXPIRATION=3600000
@@ -35,6 +38,10 @@ jobs:
           APP_CORS_ALLOWED_ORIGINS=http://localhost:4200
           SPRING_FLYWAY_ENABLED=true
           SPRING_FLYWAY_BASELINE_ON_MIGRATE=true
+          APP_AUTH_ALLOW_SELF_REGISTRATION=false
+          APP_AUTH_ALLOW_ADMIN_BOOTSTRAP=false
+          APP_AUTH_BOOTSTRAP_ADMIN_EMAIL=
+          APP_AUTH_BOOTSTRAP_ADMIN_PASSWORD=
           GRAFANA_ADMIN_USER=admin
           GRAFANA_ADMIN_PASSWORD=grafana_password
           EOF
