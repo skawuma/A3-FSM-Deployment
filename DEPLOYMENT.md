@@ -38,8 +38,8 @@ Prometheus scrapes backend metrics from `/actuator/prometheus` every 15 seconds 
 Set these values in `.env` before running production:
 
 ```text
-GRAFANA_ADMIN_USER=admin
-GRAFANA_ADMIN_PASSWORD=replace-with-a-strong-grafana-password
+GF_SECURITY_ADMIN_USER=admin
+GF_SECURITY_ADMIN_PASSWORD=replace-with-a-strong-grafana-password
 ```
 
 More detail lives in `MONITORING.md`. VPS deployment details live in `VPS_DEPLOYMENT.md`.

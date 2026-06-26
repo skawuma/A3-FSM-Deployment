@@ -27,8 +27,13 @@ jobs:
           DB_NAME=a3fsm
           DB_USERNAME=a3fsm_user
           DB_PASSWORD=a3fsm_password
-          APP_HOST=fsm.example.com
-          GRAFANA_HOST=grafana.example.com
+          SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/a3fsm
+          SPRING_DATASOURCE_USERNAME=a3fsm_user
+          SPRING_DATASOURCE_PASSWORD=a3fsm_password
+          BACKEND_IMAGE=ghcr.io/skawuma/a3-fsm-backend:sprint-9-production-devops
+          FRONTEND_IMAGE=ghcr.io/skawuma/a3-fsm-frontend:sprint-9-production-devops
+          FSM_DOMAIN=fsm.example.com
+          GRAFANA_DOMAIN=grafana.example.com
           ACME_EMAIL=admin@example.com
           PGADMIN_EMAIL=admin@example.com
           PGADMIN_PASSWORD=pgadmin_password
@@ -36,14 +41,15 @@ jobs:
           JWT_REFRESH_EXPIRATION=604800000
           JWT_SECRET=test-secret-key-with-at-least-thirty-two-bytes
           APP_CORS_ALLOWED_ORIGINS=http://localhost:4200
+          CORS_ALLOWED_ORIGINS=http://localhost:4200
           SPRING_FLYWAY_ENABLED=true
           SPRING_FLYWAY_BASELINE_ON_MIGRATE=true
           APP_AUTH_ALLOW_SELF_REGISTRATION=false
           APP_AUTH_ALLOW_ADMIN_BOOTSTRAP=false
           APP_AUTH_BOOTSTRAP_ADMIN_EMAIL=
           APP_AUTH_BOOTSTRAP_ADMIN_PASSWORD=
-          GRAFANA_ADMIN_USER=admin
-          GRAFANA_ADMIN_PASSWORD=grafana_password
+          GF_SECURITY_ADMIN_USER=admin
+          GF_SECURITY_ADMIN_PASSWORD=grafana_password
           EOF
 
       - name: Create CI-only compose build placeholders

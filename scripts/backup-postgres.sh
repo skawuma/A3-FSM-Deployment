@@ -2,13 +2,14 @@
 set -eu
 
 COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.ghcr.yml}"
+COMPOSE_ENV_FILE="${COMPOSE_ENV_FILE:-.env.prod}"
 BACKUP_DIR="${BACKUP_DIR:-db_backups}"
 TIMESTAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 BACKUP_FILE="${BACKUP_DIR}/a3fsm_${TIMESTAMP}.dump"
 
 mkdir -p "$BACKUP_DIR"
 
-docker compose -f "$COMPOSE_FILE" exec -T db sh -c \
+docker compose --env-file "$COMPOSE_ENV_FILE" -f "$COMPOSE_FILE" exec -T db sh -c \
   'pg_dump --format=custom --no-owner --no-acl --dbname="$POSTGRES_DB" --username="$POSTGRES_USER"' \
   > "$BACKUP_FILE"
 

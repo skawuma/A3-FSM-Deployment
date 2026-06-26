@@ -7,6 +7,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.ghcr.yml}"
+COMPOSE_ENV_FILE="${COMPOSE_ENV_FILE:-.env.prod}"
 BACKUP_FILE="$1"
 
 if [ ! -f "$BACKUP_FILE" ]; then
@@ -14,10 +15,10 @@ if [ ! -f "$BACKUP_FILE" ]; then
   exit 66
 fi
 
-docker compose -f "$COMPOSE_FILE" exec -T db sh -c \
+docker compose --env-file "$COMPOSE_ENV_FILE" -f "$COMPOSE_FILE" exec -T db sh -c \
   'dropdb --if-exists --username="$POSTGRES_USER" "$POSTGRES_DB" && createdb --username="$POSTGRES_USER" "$POSTGRES_DB"'
 
-docker compose -f "$COMPOSE_FILE" exec -T db sh -c \
+docker compose --env-file "$COMPOSE_ENV_FILE" -f "$COMPOSE_FILE" exec -T db sh -c \
   'pg_restore --clean --if-exists --no-owner --no-acl --dbname="$POSTGRES_DB" --username="$POSTGRES_USER"' \
   < "$BACKUP_FILE"
 
