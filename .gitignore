@@ -17,3 +17,7 @@ uploads/
 A3 Field Service Management Backend/
 A3 Field Service Management Frontend/
 A3_ Solutions_ project_proposal/
+.env.prod
+secrets/jwt_secret.txt
+*.bak
+deployment-proof/
