@@ -1,4 +1,4 @@
-# Sprint 9 Deployment Notes
+# A3 FSM Deployment Notes
 
 ## Production Configuration
 
@@ -39,6 +39,25 @@ The local source-build production-shaped stack is a separate workflow:
    ```
 
 Production defaults keep self-registration and admin bootstrap disabled. Only login and refresh-token exchange should remain public auth flows in a normal production deployment.
+
+## Sprint 10 Demo Mode
+
+The public portfolio demo uses the production configuration plus a dedicated demo profile:
+
+```dotenv
+SPRING_PROFILES_ACTIVE=prod,demo
+DEMO_DATA_ENABLED=true
+```
+
+The demo profile seeds only fictional users, technicians, work orders, timeline events, and completion reports. The public credentials are displayed in the frontend login experience. Ordinary production remains `SPRING_PROFILES_ACTIVE=prod` with `DEMO_DATA_ENABLED=false`.
+
+Resetting the demo database is backup-first and requires explicit confirmation:
+
+```sh
+./scripts/reset-demo-db.sh --confirm-demo-reset
+```
+
+Do not execute the reset against a non-demo database. See [`docs/DEMO_MODE.md`](docs/DEMO_MODE.md) for the complete activation, reset, and verification runbook.
 
 ## Health Checks
 

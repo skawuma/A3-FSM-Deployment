@@ -360,6 +360,18 @@ Expected direction:
 
 Kafka remains a future scaling option for event-driven processing, but it is not required for the current stage of the platform.
 
+### Sprint 10 — Demo Readiness
+
+Sprint 10 turns the production-style deployment into a portfolio-ready public demo:
+
+- fictional Admin, Dispatcher, and Technician accounts with BCrypt-hashed passwords;
+- realistic technicians, work orders, overdue items, timeline events, and completion reports;
+- a visible demo-mode banner and one-click credentials on the login page;
+- an opt-in `prod,demo` backend profile that leaves ordinary production defaults unchanged;
+- a backup-first, confirmation-gated reset script for restoring clean demo data.
+
+See the [Sprint 10 demo-mode runbook](./docs/DEMO_MODE.md) for activation and reset instructions.
+
 ## Visual Architecture Guide
 
 The Mermaid overview above gives the quickest technical snapshot. The image-based diagrams below are the more presentation-ready visuals and are the best entry point for reviewers, stakeholders, and anyone who wants to understand the platform without reading implementation detail first.
@@ -484,6 +496,8 @@ In the production compose file, the backend, database, Prometheus, and PostgreSQ
 - [User Stories](./docs/USER_STORIES.md)
 - [Business Rules](./docs/BUSINESS_RULES.md)
 - [System Design](./docs/SYSTEM_DESIGN.md)
+- [Sprint 10 Demo Mode](./docs/DEMO_MODE.md)
+- [Sprint 10 Execution Map](./docs/SPRINT_10_DEMO_READINESS.md)
 - [Backend README](./A3%20Field%20Service%20Management%20Backend/README.MD)
 - [Frontend README](./A3%20Field%20Service%20Management%20Frontend/a3-fsm-frontend/README.md)
 

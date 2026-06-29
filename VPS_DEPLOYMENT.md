@@ -789,7 +789,29 @@ Cron recommendation after manual backup succeeds:
 
 ---
 
-## 14. Remaining Production Hardening Checklist
+## 14. Sprint 10 Demo Readiness
+
+Sprint 10 adds an opt-in public demo profile without weakening ordinary production defaults. The live backend must receive both:
+
+```dotenv
+SPRING_PROFILES_ACTIVE=prod,demo
+DEMO_DATA_ENABLED=true
+```
+
+The profile creates fictional demo users and realistic dashboard data. The Angular production build displays a demo banner and public role credentials. Permanent technician deletion is blocked in demo mode, while self-registration and admin bootstrap remain disabled.
+
+The manual reset workflow is backup-first and confirmation-gated:
+
+```sh
+cd /opt/a3-fsm/A3-FSM-Deployment
+./scripts/reset-demo-db.sh --confirm-demo-reset
+```
+
+This script temporarily stops and restarts only the backend. It does not remove volumes and does not run `docker compose down`. Review [`docs/DEMO_MODE.md`](docs/DEMO_MODE.md) before use.
+
+---
+
+## 15. Remaining Production Hardening Checklist
 
 Sprint 9 production-hardening status:
 
@@ -826,7 +848,7 @@ Before calling the deployment production-final:
 
 ---
 
-## 15. Current Deployment Classification
+## 16. Current Deployment Classification
 
 Current state:
 

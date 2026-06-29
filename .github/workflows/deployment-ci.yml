@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - sprint-10-demo-readiness
   pull_request:
     branches:
       - main
+      - sprint-10-demo-readiness
   workflow_dispatch:
 
 permissions:
@@ -30,8 +32,10 @@ jobs:
           SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/a3fsm
           SPRING_DATASOURCE_USERNAME=a3fsm_user
           SPRING_DATASOURCE_PASSWORD=a3fsm_password
-          BACKEND_IMAGE=ghcr.io/skawuma/a3-fsm-backend:sprint-9-production-devops
-          FRONTEND_IMAGE=ghcr.io/skawuma/a3-fsm-frontend:sprint-9-production-devops
+          BACKEND_IMAGE=ghcr.io/skawuma/a3-fsm-backend:sprint-10-demo-readiness
+          FRONTEND_IMAGE=ghcr.io/skawuma/a3-fsm-frontend:sprint-10-demo-readiness
+          SPRING_PROFILES_ACTIVE=prod,demo
+          DEMO_DATA_ENABLED=true
           FSM_DOMAIN=fsm.example.com
           GRAFANA_DOMAIN=grafana.example.com
           ACME_EMAIL=admin@example.com

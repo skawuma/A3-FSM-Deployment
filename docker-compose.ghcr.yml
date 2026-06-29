@@ -53,12 +53,13 @@ services:
       - a3fsm_network
 
   backend:
-    image: ${BACKEND_IMAGE:-ghcr.io/skawuma/a3-fsm-backend:sprint-9-production-devops}
+    image: ${BACKEND_IMAGE:-ghcr.io/skawuma/a3-fsm-backend:sprint-10-demo-readiness}
     pull_policy: always
     container_name: a3fsm_backend_prod
     restart: unless-stopped
     environment:
-      SPRING_PROFILES_ACTIVE: prod
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
+      DEMO_DATA_ENABLED: ${DEMO_DATA_ENABLED:-false}
       DB_URL: ${SPRING_DATASOURCE_URL:-jdbc:postgresql://db:5432/${DB_NAME}}
       DB_USERNAME: ${SPRING_DATASOURCE_USERNAME:-${DB_USERNAME}}
       DB_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-${DB_PASSWORD}}
@@ -92,7 +93,7 @@ services:
       - a3fsm_network
 
   frontend:
-    image: ${FRONTEND_IMAGE:-ghcr.io/skawuma/a3-fsm-frontend:sprint-9-production-devops}
+    image: ${FRONTEND_IMAGE:-ghcr.io/skawuma/a3-fsm-frontend:sprint-10-demo-readiness}
     pull_policy: always
     container_name: a3fsm_frontend_prod
     restart: unless-stopped
