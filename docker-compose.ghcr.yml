@@ -13,8 +13,12 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./vps/Caddyfile:/etc/caddy/Caddyfile:ro
+      - /opt/technews/public:/srv/technews:ro
+      - /opt/techjobs/public:/srv/techjobs:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
@@ -26,6 +30,7 @@ services:
         condition: service_started
     networks:
       - a3fsm_network
+      - caddy_proxy
 
   db:
     image: postgres:16
@@ -154,7 +159,9 @@ services:
 
 networks:
   a3fsm_network:
-
+  caddy_proxy:
+    external: true
+    name: caddy
 volumes:
   caddy_data:
   caddy_config:

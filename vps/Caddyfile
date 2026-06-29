@@ -2,6 +2,64 @@
     email {$ACME_EMAIL}
 }
 
+samuelkawuma.com, www.samuelkawuma.com {
+    encode gzip zstd
+
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+
+    reverse_proxy host.docker.internal:8090
+}
+
+api.samuelkawuma.com {
+    encode gzip zstd
+
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+
+    @allowedOrigin header_regexp Origin ^https://(www\.)?samuelkawuma\.com$
+    header @allowedOrigin Access-Control-Allow-Origin "{http.request.header.Origin}"
+    header @allowedOrigin Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    header @allowedOrigin Access-Control-Allow-Headers "Content-Type, Authorization, X-Hub-Signature-256, X-GitHub-Event"
+    header @allowedOrigin Vary "Origin"
+
+    @preflight method OPTIONS
+    respond @preflight 204
+
+    handle /health {
+        respond "api ok" 200
+    }
+
+    handle /hooks/* {
+        reverse_proxy host.docker.internal:9100
+    }
+
+    handle /api/contact {
+        reverse_proxy host.docker.internal:3010
+    }
+
+    handle /technews.json {
+        root * /srv/technews
+        file_server
+    }
+
+    handle /techjobs.json {
+        root * /srv/techjobs
+        file_server
+    }
+
+    handle {
+        respond "Not found" 404
+    }
+}
+
 {$FSM_DOMAIN} {
     encode gzip zstd
 
@@ -31,6 +89,32 @@
     handle {
         reverse_proxy frontend:80
     }
+}
+
+schedule.samuelkawuma.com {
+    encode gzip zstd
+
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+
+    reverse_proxy shift-frontend:80
+}
+
+api-schedule.samuelkawuma.com {
+    encode gzip zstd
+
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+
+    reverse_proxy shift-backend:8080
 }
 
 {$GRAFANA_DOMAIN} {

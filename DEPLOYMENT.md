@@ -2,6 +2,27 @@
 
 ## Production Configuration
 
+The live Hostinger VPS deployment is managed from:
+
+```sh
+cd /opt/a3-fsm/A3-FSM-Deployment
+```
+
+Its authoritative deployment context is:
+
+- Compose file: `docker-compose.ghcr.yml`
+- Environment file: `.env.prod`
+
+Use both files for every live Compose operation:
+
+```sh
+docker compose --env-file .env.prod -f docker-compose.ghcr.yml <command>
+```
+
+Do not substitute `.env` or `docker-compose.prod.yml` when administering the live VPS stack. `.env.prod` contains live configuration and must never be committed to Git.
+
+The local source-build production-shaped stack is a separate workflow:
+
 1. Copy `.env.example` to `.env` and replace every placeholder.
 2. Create `secrets/jwt_secret.txt` with a long random value:
 
@@ -11,16 +32,10 @@
    chmod 600 secrets/jwt_secret.txt
    ```
 
-3. For VPS deployment, prefer the GHCR runtime stack:
+3. Start the local source-build stack:
 
    ```sh
-   docker compose -f docker-compose.ghcr.yml --env-file .env up -d
-   ```
-
-   Local source-build production remains available:
-
-   ```sh
-   docker compose -f docker-compose.prod.yml --env-file .env up --build -d
+   docker compose --env-file .env -f docker-compose.prod.yml up --build -d
    ```
 
 Production defaults keep self-registration and admin bootstrap disabled. Only login and refresh-token exchange should remain public auth flows in a normal production deployment.
@@ -35,7 +50,7 @@ Production defaults keep self-registration and admin bootstrap disabled. Only lo
 
 Prometheus scrapes backend metrics from `/actuator/prometheus` every 15 seconds and also scrapes the PostgreSQL exporter. Grafana is available on port `3000` and auto-loads the `A3 FSM Operational Overview` dashboard from `observability/grafana/dashboards`.
 
-Set these values in `.env` before running production:
+Set these values in `.env.prod` for the live VPS deployment (or `.env` for the separate local source-build workflow):
 
 ```text
 GF_SECURITY_ADMIN_USER=admin

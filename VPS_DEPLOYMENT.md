@@ -139,12 +139,14 @@ The active compose command pattern is:
 docker compose --env-file .env.prod -f docker-compose.ghcr.yml <command>
 ```
 
+This is the authoritative context for every live deployment operation. Do not substitute `.env` or `docker-compose.prod.yml`. Keep `.env.prod` only on the VPS and never commit it to Git.
+
 Validated running services:
 
 | Container | Image | Current state |
 |---|---|---|
 | `a3fsm_backend_prod` | `ghcr.io/skawuma/a3-fsm-backend:sprint-9-production-devops` | Healthy |
-| `a3fsm_frontend_prod` | `ghcr.io/skawuma/a3-fsm-frontend:sprint-9-production-devops` | Running; repo healthcheck now uses `/` for the GHCR stack |
+| `a3fsm_frontend_prod` | `ghcr.io/skawuma/a3-fsm-frontend:sprint-9-production-devops` | Healthy; repo healthcheck uses `/` for the GHCR stack |
 | `a3fsm_caddy_prod` | `caddy:2-alpine` | Running; owns ports 80/443 |
 | `a3fsm_postgres_prod` | `postgres:16` | Healthy |
 | `a3fsm_prometheus_prod` | `prom/prometheus:latest` | Running |
@@ -788,6 +790,20 @@ Cron recommendation after manual backup succeeds:
 ---
 
 ## 14. Remaining Production Hardening Checklist
+
+Sprint 9 production-hardening status:
+
+| Area | Status |
+|---|---|
+| Fix frontend healthcheck | Complete |
+| Confirm correct Compose deployment context | Complete |
+| Confirm app stack is running | Complete |
+| Confirm backend, frontend, and database health | Complete |
+| Validate internal health endpoints | In progress |
+| Confirm backups | In progress |
+| Rotate secrets | To do |
+| Validate monitoring fully | To do |
+| Finalize deployment documentation | To do |
 
 Before calling the deployment production-final:
 
