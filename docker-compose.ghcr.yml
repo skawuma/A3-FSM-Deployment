@@ -53,7 +53,7 @@ services:
       - a3fsm_network
 
   backend:
-    image: ${BACKEND_IMAGE:-ghcr.io/skawuma/a3-fsm-backend:sprint-10-demo-readiness}
+    image: ${BACKEND_IMAGE:-ghcr.io/skawuma/a3-fsm-backend:sprint-11-sla-intelligence}
     pull_policy: always
     container_name: a3fsm_backend_prod
     restart: unless-stopped
@@ -93,7 +93,7 @@ services:
       - a3fsm_network
 
   frontend:
-    image: ${FRONTEND_IMAGE:-ghcr.io/skawuma/a3-fsm-frontend:sprint-10-demo-readiness}
+    image: ${FRONTEND_IMAGE:-ghcr.io/skawuma/a3-fsm-frontend:sprint-11-sla-intelligence}
     pull_policy: always
     container_name: a3fsm_frontend_prod
     restart: unless-stopped

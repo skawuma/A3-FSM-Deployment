@@ -372,6 +372,12 @@ Sprint 10 turns the production-style deployment into a portfolio-ready public de
 
 See the [Sprint 10 demo-mode runbook](./docs/DEMO_MODE.md) for activation and reset instructions.
 
+### Sprint 11 — SLA Intelligence
+
+Sprint 11 separates dispatch, technician response, execution, and full-resolution clocks. The execution SLA begins when the technician starts travel (or starts work through the compatibility path), then records near breach, breach, completion outcome, and technician performance.
+
+The technician lifecycle is `OPEN → ASSIGNED → EN_ROUTE → ARRIVED → WORK_STARTED → COMPLETED`. See the [Sprint 11 SLA execution map](./docs/SPRINT_11_SLA_INTELLIGENCE.md).
+
 ## Visual Architecture Guide
 
 The Mermaid overview above gives the quickest technical snapshot. The image-based diagrams below are the more presentation-ready visuals and are the best entry point for reviewers, stakeholders, and anyone who wants to understand the platform without reading implementation detail first.
@@ -498,6 +504,7 @@ In the production compose file, the backend, database, Prometheus, and PostgreSQ
 - [System Design](./docs/SYSTEM_DESIGN.md)
 - [Sprint 10 Demo Mode](./docs/DEMO_MODE.md)
 - [Sprint 10 Execution Map](./docs/SPRINT_10_DEMO_READINESS.md)
+- [Sprint 11 SLA Intelligence](./docs/SPRINT_11_SLA_INTELLIGENCE.md)
 - [Backend README](./A3%20Field%20Service%20Management%20Backend/README.MD)
 - [Frontend README](./A3%20Field%20Service%20Management%20Frontend/a3-fsm-frontend/README.md)
 
