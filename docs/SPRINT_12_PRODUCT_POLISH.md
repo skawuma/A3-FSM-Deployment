@@ -95,6 +95,22 @@ PDF exports use a landscape operational-report layout with:
 - Admin/Dispatcher can access Reports; Technician cannot
 - final production screenshots are captured from the deployed Sprint 12 images
 
+## Production rollout
+
+Sprint 12 is deployed from `sprint-12-product-polish` using the GHCR frontend and backend images. The July 1, 2026 production verification confirmed:
+
+- both application containers report healthy
+- public readiness reports `UP`
+- unauthenticated report requests return `401`
+- the Dispatcher demo account receives a complete `200` operations report
+- CSV generation preserves UTF-8 BOM and safely quotes commas and embedded quotation marks
+- PDF generation against the production report payload renders a clean A4 landscape report
+- desktop Dashboard and Reports views render without browser console errors
+- the 390px mobile shell exposes the navigation drawer without horizontal overflow
+- final 1280x720 production screenshots are stored in `docs/screenshots`
+
+Production-shaped data exposed an incomplete legacy timing record that could return `500` while calculating technician averages. Backend commit `73de471` handles missing timing data safely and adds a regression test; the corrected image was rebuilt, published, deployed, and verified against the same authenticated request.
+
 ## Portfolio explanation
 
 Sprint 12 demonstrates the layer of engineering between a working system and a credible product. The release converts mature field-service workflows and SLA intelligence into a coherent, responsive SaaS experience. It also adds management reporting with CSV and PDF exports, role-aware navigation, and a documented design system without replacing the proven Angular and Spring Boot architecture.
