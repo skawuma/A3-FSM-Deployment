@@ -36,6 +36,25 @@ This project is strongest when explained from both a business and engineering an
 - engineering value: strong backend workflow enforcement, structured reporting, dashboard analytics, Docker packaging, and a clear realtime evolution path
 - operational value: better visibility, cleaner reporting, stronger auditability, and faster decision-making
 
+## Sprint 12 Product Experience
+
+Sprint 12 applies a Figma-inspired enterprise SaaS design system to the proven Angular workflow instead of rebuilding the application. The release adds responsive navigation, clearer role-specific dashboard framing, operational reports, and downloadable CSV/PDF exports.
+
+![Sprint 12 dispatcher dashboard](docs/screenshots/sprint-12-dashboard.png)
+
+![Sprint 12 operations reports](docs/screenshots/sprint-12-reports.png)
+
+Key delivery points:
+
+- responsive desktop, tablet, and mobile application shell
+- consistent design tokens, cards, tables, status badges, and spacing
+- role-aware navigation and dashboard hierarchy
+- date-filtered operations report API
+- SLA, workload, and technician performance reporting
+- CSV and designed multi-page PDF exports
+
+See [Sprint 12 - Product Polish](docs/SPRINT_12_PRODUCT_POLISH.md) for the delivery map and verification checklist.
+
 ## Why This Project Exists
 
 In many field service teams, job coordination still happens across phone calls, spreadsheets, sticky notes, and memory. That creates a familiar set of problems:
@@ -93,6 +112,7 @@ flowchart LR
 - SLA watch for overdue and due-today jobs
 - technician workload overview and heatmap foundation
 - role-aware dashboards for admin, dispatch, and technician users
+- operational reports with CSV and PDF export for admin and dispatch users
 
 The quick architecture view below shows the current deployed shape of the platform. A more detailed current-state and future-state view appears later in this README.
 
