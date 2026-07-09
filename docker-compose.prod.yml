@@ -21,7 +21,7 @@ services:
 
   backend:
     build:
-      context: "./A3 Field Service Management Backend"
+      context: "../A3-Field-Service-Management-Backend"
       dockerfile: Dockerfile
     container_name: a3fsm_backend_prod
     restart: unless-stopped
@@ -59,7 +59,7 @@ services:
 
   frontend:
     build:
-      context: "./A3 Field Service Management Frontend/a3-fsm-frontend"
+      context: "../A3-Field-Service-Management-Frontend"
       dockerfile: Dockerfile
     container_name: a3fsm_frontend_prod
     restart: unless-stopped

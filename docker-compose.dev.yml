@@ -36,7 +36,7 @@ services:
 
   backend:
     build:
-      context: "./A3 Field Service Management Backend"
+      context: "../A3-Field-Service-Management-Backend"
       dockerfile: Dockerfile
     container_name: a3fsm_backend
     restart: always
@@ -59,7 +59,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - "./A3 Field Service Management Backend/uploads:/app/uploads"
+      - "../A3-Field-Service-Management-Backend/uploads:/app/uploads"
     healthcheck:
       test: ["CMD-SHELL", "curl --fail --silent http://localhost:8080/actuator/health/readiness || exit 1"]
       interval: 30s
@@ -71,7 +71,7 @@ services:
 
   frontend:
     build:
-      context: "./A3 Field Service Management Frontend/a3-fsm-frontend"
+      context: "../A3-Field-Service-Management-Frontend"
       dockerfile: Dockerfile
     container_name: a3fsm_frontend
     restart: always

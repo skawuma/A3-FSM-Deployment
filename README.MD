@@ -312,19 +312,19 @@ sequenceDiagram
 
 ```text
 A3_SOLUTIONS_PROJECT/
-|- README.MD
-|- docker-compose.dev.yml
-|- docker-compose.prod.yml
-|- .env
-|- docs/
-|- observability/
-|- A3 Field Service Management Backend/
+|- A3-FSM-Deployment/
+|  |- README.MD
+|  |- docker-compose.dev.yml
+|  |- docker-compose.prod.yml
+|  |- .env
+|  |- docs/
+|  `- observability/
+|- A3-Field-Service-Management-Backend/
 |  |- README.MD
 |  `- src/...
-`- A3 Field Service Management Frontend/
-   `- a3-fsm-frontend/
-      |- README.md
-      `- src/...
+`- A3-Field-Service-Management-Frontend/
+   |- README.md
+   `- src/...
 ```
 
 ## High-Level Technical View
