@@ -80,7 +80,9 @@ More detail lives in `MONITORING.md`. VPS deployment details live in `VPS_DEPLOY
 
 ## Frontend Runtime
 
-Nginx serves the Angular static production build, proxies `/api/` and `/ws` to the backend service, enables gzip compression, caches hashed static assets for one year, and falls back to `index.html` for SPA routes.
+Caddy is the intended public HTTPS edge proxy for production. It owns ports `80` and `443`, terminates TLS, routes `/api/*`, `/ws*`, and approved health endpoints to the Spring Boot backend, and routes all SPA paths to the Angular frontend container.
+
+The Angular frontend container still uses its bundled Nginx process internally to serve static files and fall back to `index.html` for SPA routes. That container-level Nginx is not the public VPS edge proxy.
 
 ## Database Persistence
 

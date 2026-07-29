@@ -354,14 +354,22 @@ sudo systemctl stop nginx
 docker compose --env-file .env.prod -f docker-compose.ghcr.yml up -d caddy
 ```
 
+July 29, 2026 recovery hardening:
+
+```sh
+sudo systemctl disable nginx
+```
+
+This keeps system Nginx from automatically reclaiming ports `80` and `443` after a VPS reboot. Caddy remains the production edge proxy while the Angular frontend container's internal Nginx only serves static SPA assets inside Docker.
+
 Important operational note:
 
 Do not restart system Nginx unless the long-term reverse proxy strategy is changed. If Nginx starts again, it can reclaim ports 80/443 and break Caddy.
 
-Long-term decision still needed:
+Long-term decision:
 
 ```text
-Option A: Caddy becomes the main VPS reverse proxy.
+Option A: Caddy becomes the main VPS reverse proxy. Selected.
 Option B: Nginx remains the main reverse proxy and A3 FSM removes Caddy from compose.
 ```
 
@@ -841,8 +849,8 @@ Before calling the deployment production-final:
 [ ] Confirm Grafana datasource points to http://prometheus:9090.
 [ ] Run manual database backup and confirm dump file exists.
 [ ] Add cron backup schedule.
-[ ] Decide long-term reverse proxy owner: Caddy or Nginx.
-[ ] Prevent system Nginx from automatically reclaiming ports 80/443 if Caddy remains the public edge.
+[x] Decide long-term reverse proxy owner: Caddy.
+[x] Prevent system Nginx from automatically reclaiming ports 80/443 by disabling Nginx auto-start.
 [ ] Run full app workflow smoke test: technician -> work order -> assignment -> timeline -> completion -> dashboard update.
 ```
 

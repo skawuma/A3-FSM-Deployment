@@ -26,24 +26,27 @@ The current system is a full-stack application with these main parts:
 
 ```mermaid
 flowchart TB
-    U[Browser] --> F[Angular Frontend]
-    F --> P[API Proxy or Nginx]
-    P --> B[Spring Boot Backend]
+    U[Browser] -->|HTTPS 443| C[Caddy Edge Proxy]
+    C -->|SPA routes| F[Angular Frontend Container]
+    C -->|/api/* and /ws*| B[Spring Boot Backend]
     B --> DB[(PostgreSQL)]
     B --> FS[Uploads Storage]
     B --> JWT[JWT Access and Refresh Tokens]
 
     B <--> WS[WebSocket STOMP Broker]
-    WS --> F
+    WS --> C
 
     subgraph DevOps
         DC[Docker Compose]
+        EDGE[Caddy Container]
         PGA[pgAdmin]
     end
 
+    DC --> EDGE
     DC --> F
     DC --> B
     DC --> DB
+    EDGE --> C
     PGA --> DB
 ```
 
